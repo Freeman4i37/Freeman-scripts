@@ -7,7 +7,7 @@ gui.Parent = game.CoreGui
 gui.ResetOnSpawn = false
 
 local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 230, 0, 320)
+frame.Size = UDim2.new(0, 250, 0, 370)
 frame.Position = UDim2.new(0.05, 0, 0.05, 0)
 frame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 frame.Active = true
@@ -16,13 +16,46 @@ frame.Parent = gui
 Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 10)
 
 local title = Instance.new("TextLabel")
-title.Text = "RLD V1.15"
+title.Text = "RLD v1.15"
 title.Size = UDim2.new(1, 0, 0, 30)
 title.BackgroundTransparency = 1
 title.TextColor3 = Color3.fromRGB(255, 255, 255)
 title.Font = Enum.Font.GothamBold
 title.TextScaled = true
 title.Parent = frame
+
+local keyLabel = Instance.new("TextLabel")
+keyLabel.Text = "Please, get complete the system :)"
+keyLabel.Size = UDim2.new(1, 0, 0, 20)
+keyLabel.Position = UDim2.new(0, 0, 0, 30)
+keyLabel.BackgroundTransparency = 1
+keyLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+keyLabel.Font = Enum.Font.Gotham
+keyLabel.TextScaled = true
+keyLabel.Parent = frame
+
+local keyBox = Instance.new("TextBox")
+keyBox.PlaceholderText = "Enter Key Here"
+keyBox.Size = UDim2.new(0.8, 0, 0, 30)
+keyBox.Position = UDim2.new(0.1, 0, 0, 55)
+keyBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+keyBox.Text = ""
+keyBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+keyBox.Font = Enum.Font.GothamBold
+keyBox.TextScaled = true
+keyBox.Parent = frame
+Instance.new("UICorner", keyBox).CornerRadius = UDim.new(0, 6)
+
+local getKeyButton = Instance.new("TextButton")
+getKeyButton.Size = UDim2.new(0.8, 0, 0, 25)
+getKeyButton.Position = UDim2.new(0.1, 0, 0, 90)
+getKeyButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+getKeyButton.Text = "Get Key Link"
+getKeyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+getKeyButton.Font = Enum.Font.GothamBold
+getKeyButton.TextScaled = true
+getKeyButton.Parent = frame
+Instance.new("UICorner", getKeyButton).CornerRadius = UDim.new(0, 6)
 
 local function CreateButton(text, y)
 	local btn = Instance.new("TextButton")
@@ -33,45 +66,21 @@ local function CreateButton(text, y)
 	btn.TextColor3 = Color3.fromRGB(255, 255, 255)
 	btn.Font = Enum.Font.GothamBold
 	btn.TextScaled = true
+	btn.Visible = false
 	btn.Parent = frame
 	Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 6)
 	return btn
 end
 
-local espButton = CreateButton("ESP: ON", 0.17)
-local autoDoorsButton = CreateButton("Auto Doors: OFF", 0.3)
-local takeBandageButton = CreateButton("Take Bandage", 0.43)
-local takeMedicineButton = CreateButton("Take Medicine", 0.56)
-local viewEntitiesButton = CreateButton("View Entities: OFF", 0.69)
-
-local closeButton = CreateButton("CLOSE", 0.82)
+local espButton = CreateButton("ESP: ON", 0.34)
+local autoDoorsButton = CreateButton("Auto Doors: OFF", 0.44)
+local viewNearButton = CreateButton("View Nearest Entity: OFF", 0.54)
+local viewFarButton = CreateButton("View Farthest Entity: OFF", 0.64)
+local closeButton = CreateButton("CLOSE", 0.74)
 closeButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 
-local minimizeButton = Instance.new("TextButton")
-minimizeButton.Size = UDim2.new(0, 30, 0, 30)
-minimizeButton.Position = UDim2.new(1, -35, 0, 2)
-minimizeButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
-minimizeButton.Text = "-"
-minimizeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-minimizeButton.Font = Enum.Font.GothamBold
-minimizeButton.TextScaled = true
-minimizeButton.Parent = frame
-Instance.new("UICorner", minimizeButton).CornerRadius = UDim.new(0, 6)
-
-local miniButton = Instance.new("TextButton")
-miniButton.Size = UDim2.new(0, 30, 0, 30)
-miniButton.Position = UDim2.new(0.05, 0, 0.05, 0)
-miniButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-miniButton.Text = "+"
-miniButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-miniButton.Font = Enum.Font.GothamBold
-miniButton.TextScaled = true
-miniButton.Visible = false
-miniButton.Parent = gui
-Instance.new("UICorner", miniButton).CornerRadius = UDim.new(0, 6)
-
 local credit = Instance.new("TextLabel")
-credit.Text = "Made by Freeman4i37!"
+credit.Text = "Made by Freeman4i37"
 credit.Size = UDim2.new(1, 0, 0, 20)
 credit.Position = UDim2.new(0, 0, 1, -20)
 credit.BackgroundTransparency = 1
@@ -80,6 +89,47 @@ credit.Font = Enum.Font.GothamBold
 credit.TextScaled = true
 credit.Parent = frame
 
+local validKeys = {
+	"FREEMAN-4137-89JKS",
+	"FREEMAN-4137-88HJS",
+	"FREEMAN-4137-86271",
+	"FREEMAN-4137-101UIW",
+	"FREEMAN-4137-8728HJS",
+	"FREEMAN-4137-89JKS772",
+}
+
+local lastKeyTime = nil
+local function keyValid()
+	if lastKeyTime and os.time() - lastKeyTime < 43200 then -- 12 horas
+		return true
+	end
+	return false
+end
+
+local function unlock()
+	espButton.Visible = true
+	autoDoorsButton.Visible = true
+	viewNearButton.Visible = true
+	viewFarButton.Visible = true
+	closeButton.Visible = true
+	keyLabel.Visible = false
+	keyBox.Visible = false
+	getKeyButton.Visible = false
+end
+
+getKeyButton.MouseButton1Click:Connect(function()
+	setclipboard("https://link-target.net/1361540/ueclQeEmDvVv")
+end)
+
+keyBox.FocusLost:Connect(function()
+	local input = keyBox.Text:match("^%s*(.-)%s*$")
+	if table.find(validKeys, input) then
+		lastKeyTime = os.time()
+		unlock()
+	else
+		keyBox.Text = "Invalid Key"
+	end
+end)
 
 local ESPFolder = Instance.new("Folder", game.CoreGui)
 ESPFolder.Name = "RLD_ESP"
@@ -148,8 +198,11 @@ espButton.MouseButton1Click:Connect(function()
 	espButton.Text = espEnabled and "ESP: ON" or "ESP: OFF"
 end)
 
-
 local autoDoors = false
+autoDoorsButton.MouseButton1Click:Connect(function()
+	autoDoors = not autoDoors
+	autoDoorsButton.Text = autoDoors and "Auto Doors: ON" or "Auto Doors: OFF"
+end)
 
 task.spawn(function()
 	while true do
@@ -172,79 +225,44 @@ task.spawn(function()
 	end
 end)
 
-autoDoorsButton.MouseButton1Click:Connect(function()
-	autoDoors = not autoDoors
-	autoDoorsButton.Text = autoDoors and "Auto Doors: ON" or "Auto Doors: OFF"
-end)
+local viewingNear = false
+local viewingFar = false
+local viewConnectionNear
+local viewConnectionFar
+local currentTargetNear = nil
+local currentTargetFar = nil
 
+viewNearButton.MouseButton1Click:Connect(function()
+	viewingNear = not viewingNear
+	viewNearButton.Text = viewingNear and "View Nearest Entity: ON" or "View Nearest Entity: OFF"
 
-takeBandageButton.MouseButton1Click:Connect(function()
-	local hrp = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
-	if not hrp then return end
-	local originalPos = hrp.CFrame
-	for _, room in pairs(workspace.CurrentRoomsA:GetChildren()) do
-		local item = room:FindFirstChild("BANDAGE")
-		if item and item:FindFirstChild("Bandage") then
-			hrp.CFrame = item.Bandage.CFrame + Vector3.new(0, 3, 0)
-			fireproximityprompt(item.Bandage:FindFirstChildOfClass("ProximityPrompt"))
-			task.wait(0.1)
-		end
-	end
-	hrp.CFrame = originalPos
-end)
-
-
-takeMedicineButton.MouseButton1Click:Connect(function()
-	local hrp = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
-	if not hrp then return end
-	local originalPos = hrp.CFrame
-	for _, room in pairs(workspace.CurrentRoomsA:GetChildren()) do
-		local item = room:FindFirstChild("Medicine")
-		if item then
-			hrp.CFrame = item.CFrame + Vector3.new(0, 3, 0)
-			fireproximityprompt(item:FindFirstChildOfClass("ProximityPrompt"))
-			task.wait(0.1)
-		end
-	end
-	hrp.CFrame = originalPos
-end)
-
-
-local viewing = false
-local viewConnection
-local currentTarget = nil
-
-viewEntitiesButton.MouseButton1Click:Connect(function()
-	viewing = not viewing
-	viewEntitiesButton.Text = viewing and "View Entities: ON" or "View Entities: OFF"
-
-	if viewing then
-		viewConnection = game:GetService("RunService").RenderStepped:Connect(function()
+	if viewingNear then
+		viewConnectionNear = game:GetService("RunService").RenderStepped:Connect(function()
 			local folder = workspace:FindFirstChild("SpawnedEnitites")
 			if folder then
-				local closestEntity, dist = nil, math.huge
+				local closest, dist = nil, math.huge
 				for _, entity in pairs(folder:GetChildren()) do
 					local part = GetPart(entity)
 					if part then
 						local d = (player.Character.HumanoidRootPart.Position - part.Position).Magnitude
 						if d < dist then
-							closestEntity = part
+							closest = part
 							dist = d
 						end
 					end
 				end
-				if closestEntity then
-					currentTarget = closestEntity
-					camera.CameraSubject = currentTarget
+				if closest then
+					currentTargetNear = closest
+					camera.CameraSubject = currentTargetNear
 				end
 			end
 		end)
 	else
-		if viewConnection then
-			viewConnection:Disconnect()
-			viewConnection = nil
+		if viewConnectionNear then
+			viewConnectionNear:Disconnect()
+			viewConnectionNear = nil
 		end
-		currentTarget = nil
+		currentTargetNear = nil
 		local humanoid = player.Character and player.Character:FindFirstChildWhichIsA("Humanoid")
 		if humanoid then
 			camera.CameraSubject = humanoid
@@ -252,18 +270,45 @@ viewEntitiesButton.MouseButton1Click:Connect(function()
 	end
 end)
 
+viewFarButton.MouseButton1Click:Connect(function()
+	viewingFar = not viewingFar
+	viewFarButton.Text = viewingFar and "View Farthest Entity: ON" or "View Farthest Entity: OFF"
+
+	if viewingFar then
+		viewConnectionFar = game:GetService("RunService").RenderStepped:Connect(function()
+			local folder = workspace:FindFirstChild("SpawnedEnitites")
+			if folder then
+				local farthest, dist = nil, 0
+				for _, entity in pairs(folder:GetChildren()) do
+					local part = GetPart(entity)
+					if part then
+						local d = (player.Character.HumanoidRootPart.Position - part.Position).Magnitude
+						if d > dist then
+							farthest = part
+							dist = d
+						end
+					end
+				end
+				if farthest then
+					currentTargetFar = farthest
+					camera.CameraSubject = currentTargetFar
+				end
+			end
+		end)
+	else
+		if viewConnectionFar then
+			viewConnectionFar:Disconnect()
+			viewConnectionFar = nil
+		end
+		currentTargetFar = nil
+		local humanoid = player.Character and player.Character:FindFirstChildWhichIsA("Humanoid")
+		if humanoid then
+			camera.CameraSubject = humanoid
+		end
+	end
+end)
 
 closeButton.MouseButton1Click:Connect(function()
 	gui:Destroy()
 	ESPFolder:Destroy()
-end)
-
-minimizeButton.MouseButton1Click:Connect(function()
-	frame.Visible = false
-	miniButton.Visible = true
-end)
-
-miniButton.MouseButton1Click:Connect(function()
-	frame.Visible = true
-	miniButton.Visible = false
 end)
