@@ -1,7 +1,6 @@
 local player = game.Players.LocalPlayer
 local camera = workspace.CurrentCamera
 
-
 local gui = Instance.new("ScreenGui")
 gui.Name = "RLD_UI"
 gui.Parent = game.CoreGui
@@ -86,6 +85,11 @@ local ESPFolder = Instance.new("Folder", game.CoreGui)
 ESPFolder.Name = "RLD_ESP"
 
 local espEnabled = true
+
+local function GetPart(model)
+	return model.PrimaryPart or model:FindFirstChildWhichIsA("BasePart")
+end
+
 local function CreateESP(part, name)
 	local Billboard = Instance.new("BillboardGui")
 	Billboard.Name = "ESP_" .. name
@@ -123,11 +127,11 @@ end
 task.spawn(function()
 	while true do
 		if espEnabled then
-			local folder = workspace:FindFirstChild("SpawnedEntities")
+			local folder = workspace:FindFirstChild("SpawnedEnitites")
 			if folder then
 				for _, entity in pairs(folder:GetChildren()) do
 					if not ESPFolder:FindFirstChild("ESP_" .. entity.Name) then
-						local part = entity.PrimaryPart or entity:FindFirstChildWhichIsA("BasePart")
+						local part = GetPart(entity)
 						if part then
 							CreateESP(part, entity.Name)
 						end
@@ -216,11 +220,11 @@ viewEntitiesButton.MouseButton1Click:Connect(function()
 
 	if viewing then
 		viewConnection = game:GetService("RunService").RenderStepped:Connect(function()
-			local folder = workspace:FindFirstChild("SpawnedEntities")
+			local folder = workspace:FindFirstChild("SpawnedEnitites")
 			if folder then
 				local closestEntity, dist = nil, math.huge
 				for _, entity in pairs(folder:GetChildren()) do
-					local part = entity.PrimaryPart or entity:FindFirstChildWhichIsA("BasePart")
+					local part = GetPart(entity)
 					if part then
 						local d = (player.Character.HumanoidRootPart.Position - part.Position).Magnitude
 						if d < dist then
@@ -229,7 +233,7 @@ viewEntitiesButton.MouseButton1Click:Connect(function()
 						end
 					end
 				end
-				if closestEntity and closestEntity ~= currentTarget then
+				if closestEntity then
 					currentTarget = closestEntity
 					camera.CameraSubject = currentTarget
 				end
