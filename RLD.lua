@@ -1,10 +1,14 @@
+local player = game.Players.LocalPlayer
+local camera = workspace.CurrentCamera
+
+
 local gui = Instance.new("ScreenGui")
 gui.Name = "RLD_UI"
 gui.Parent = game.CoreGui
 gui.ResetOnSpawn = false
 
 local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 220, 0, 240)
+frame.Size = UDim2.new(0, 230, 0, 320)
 frame.Position = UDim2.new(0.05, 0, 0.05, 0)
 frame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 frame.Active = true
@@ -13,7 +17,7 @@ frame.Parent = gui
 Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 10)
 
 local title = Instance.new("TextLabel")
-title.Text = "RLD"
+title.Text = "RLD V1.15"
 title.Size = UDim2.new(1, 0, 0, 30)
 title.BackgroundTransparency = 1
 title.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -21,60 +25,39 @@ title.Font = Enum.Font.GothamBold
 title.TextScaled = true
 title.Parent = frame
 
-local toggle = Instance.new("TextButton")
-toggle.Size = UDim2.new(0.8, 0, 0, 30)
-toggle.Position = UDim2.new(0.1, 0, 0.2, 0)
-toggle.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-toggle.Text = "ESP: ON"
-toggle.TextColor3 = Color3.fromRGB(255, 255, 255)
-toggle.Font = Enum.Font.GothamBold
-toggle.TextScaled = true
-toggle.Parent = frame
-Instance.new("UICorner", toggle).CornerRadius = UDim.new(0, 6)
+local function CreateButton(text, y)
+	local btn = Instance.new("TextButton")
+	btn.Size = UDim2.new(0.8, 0, 0, 30)
+	btn.Position = UDim2.new(0.1, 0, y, 0)
+	btn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+	btn.Text = text
+	btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+	btn.Font = Enum.Font.GothamBold
+	btn.TextScaled = true
+	btn.Parent = frame
+	Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 6)
+	return btn
+end
 
-local takeBandage = Instance.new("TextButton")
-takeBandage.Size = UDim2.new(0.8, 0, 0, 30)
-takeBandage.Position = UDim2.new(0.1, 0, 0.38, 0)
-takeBandage.BackgroundColor3 = Color3.fromRGB(0, 170, 0)
-takeBandage.Text = "Take Bandage"
-takeBandage.TextColor3 = Color3.fromRGB(255, 255, 255)
-takeBandage.Font = Enum.Font.GothamBold
-takeBandage.TextScaled = true
-takeBandage.Parent = frame
-Instance.new("UICorner", takeBandage).CornerRadius = UDim.new(0, 6)
+local espButton = CreateButton("ESP: ON", 0.17)
+local autoDoorsButton = CreateButton("Auto Doors: OFF", 0.3)
+local takeBandageButton = CreateButton("Take Bandage", 0.43)
+local takeMedicineButton = CreateButton("Take Medicine", 0.56)
+local viewEntitiesButton = CreateButton("View Entities: OFF", 0.69)
 
-local takeMedicine = Instance.new("TextButton")
-takeMedicine.Size = UDim2.new(0.8, 0, 0, 30)
-takeMedicine.Position = UDim2.new(0.1, 0, 0.56, 0)
-takeMedicine.BackgroundColor3 = Color3.fromRGB(0, 85, 170)
-takeMedicine.Text = "Take Medicine"
-takeMedicine.TextColor3 = Color3.fromRGB(255, 255, 255)
-takeMedicine.Font = Enum.Font.GothamBold
-takeMedicine.TextScaled = true
-takeMedicine.Parent = frame
-Instance.new("UICorner", takeMedicine).CornerRadius = UDim.new(0, 6)
+local closeButton = CreateButton("CLOSE", 0.82)
+closeButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 
-local close = Instance.new("TextButton")
-close.Size = UDim2.new(0.8, 0, 0, 30)
-close.Position = UDim2.new(0.1, 0, 0.74, 0)
-close.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-close.Text = "Fechar"
-close.TextColor3 = Color3.fromRGB(255, 255, 255)
-close.Font = Enum.Font.GothamBold
-close.TextScaled = true
-close.Parent = frame
-Instance.new("UICorner", close).CornerRadius = UDim.new(0, 6)
-
-local minimize = Instance.new("TextButton")
-minimize.Size = UDim2.new(0, 30, 0, 30)
-minimize.Position = UDim2.new(1, -35, 0, 2)
-minimize.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
-minimize.Text = "-"
-minimize.TextColor3 = Color3.fromRGB(255, 255, 255)
-minimize.Font = Enum.Font.GothamBold
-minimize.TextScaled = true
-minimize.Parent = frame
-Instance.new("UICorner", minimize).CornerRadius = UDim.new(0, 6)
+local minimizeButton = Instance.new("TextButton")
+minimizeButton.Size = UDim2.new(0, 30, 0, 30)
+minimizeButton.Position = UDim2.new(1, -35, 0, 2)
+minimizeButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+minimizeButton.Text = "-"
+minimizeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+minimizeButton.Font = Enum.Font.GothamBold
+minimizeButton.TextScaled = true
+minimizeButton.Parent = frame
+Instance.new("UICorner", minimizeButton).CornerRadius = UDim.new(0, 6)
 
 local miniButton = Instance.new("TextButton")
 miniButton.Size = UDim2.new(0, 30, 0, 30)
@@ -98,163 +81,185 @@ credit.Font = Enum.Font.GothamBold
 credit.TextScaled = true
 credit.Parent = frame
 
+
 local ESPFolder = Instance.new("Folder", game.CoreGui)
 ESPFolder.Name = "RLD_ESP"
 
 local espEnabled = true
-local running = true
-local player = game.Players.LocalPlayer
-
-local function GetHRP()
-    local char = player.Character or player.CharacterAdded:Wait()
-    return char:WaitForChild("HumanoidRootPart")
-end
-
-local hrp = GetHRP()
-
-player.CharacterAdded:Connect(function(char)
-    hrp = char:WaitForChild("HumanoidRootPart")
-end)
-
 local function CreateESP(part, name)
-    local Billboard = Instance.new("BillboardGui")
-    Billboard.Name = "ESP_" .. name
-    Billboard.Adornee = part
-    Billboard.Size = UDim2.new(0, 140, 0, 50)
-    Billboard.AlwaysOnTop = true
+	local Billboard = Instance.new("BillboardGui")
+	Billboard.Name = "ESP_" .. name
+	Billboard.Adornee = part
+	Billboard.Size = UDim2.new(0, 140, 0, 50)
+	Billboard.AlwaysOnTop = true
 
-    local Label = Instance.new("TextLabel")
-    Label.Size = UDim2.new(1, 0, 1, 0)
-    Label.BackgroundTransparency = 1
-    Label.TextStrokeTransparency = 0
-    Label.TextScaled = true
-    Label.Font = Enum.Font.GothamBold
-    Label.TextColor3 = Color3.new(1, 1, 1)
-    Label.Text = name .. " | 0m"
-    Label.Parent = Billboard
+	local Label = Instance.new("TextLabel")
+	Label.Size = UDim2.new(1, 0, 1, 0)
+	Label.BackgroundTransparency = 1
+	Label.TextStrokeTransparency = 0
+	Label.TextScaled = true
+	Label.Font = Enum.Font.GothamBold
+	Label.TextColor3 = Color3.new(1, 1, 1)
+	Label.Text = name .. " | 0m"
+	Label.Parent = Billboard
 
-    Billboard.Parent = ESPFolder
+	Billboard.Parent = ESPFolder
 
-    local connection
-    connection = game:GetService("RunService").RenderStepped:Connect(function()
-        if Billboard and Billboard.Adornee and espEnabled and hrp then
-            local distance = (hrp.Position - Billboard.Adornee.Position).Magnitude
-            Label.Text = name .. " | " .. math.floor(distance) .. "m"
-            Billboard.Enabled = true
-        elseif not espEnabled then
-            Billboard.Enabled = false
-        else
-            Billboard:Destroy()
-            connection:Disconnect()
-        end
-    end)
+	local connection
+	connection = game:GetService("RunService").RenderStepped:Connect(function()
+		if Billboard and Billboard.Adornee ad espEnabled then
+			local distance = (player.Character.HumanoidRootPart.Position - Billboard.Adornee.Position).Magnitude
+			Label.Text = name .. " | " .. math.floor(distance) .. "m"
+			Billboard.Enabled = true
+		elseif not espEnabled then
+			Billboard.Enabled = false
+		else
+			Billboard:Destroy()
+			connection:Disconnect()
+		end
+	end)
 end
 
-local function IsEntity(obj)
-    if obj:IsA("BasePart") then
-        return true, obj
-    elseif obj:IsA("Model") and obj.PrimaryPart then
-        return true, obj.PrimaryPart
-    elseif obj:IsA("Model") then
-        local part = obj:FindFirstChildWhichIsA("BasePart")
-        if part then
-            return true, part
-        end
-    end
-    return false
-end
-
-local function ScanEntities()
-    while running do
-        if espEnabled then
-            local entitiesFolder = game:GetService("Workspace"):FindFirstChild("SpawnedEnitites")
-            if entitiesFolder then
-                for _, entity in pairs(entitiesFolder:GetChildren()) do
-                    if not ESPFolder:FindFirstChild("ESP_" .. entity.Name) then
-                        local valid, part = IsEntity(entity)
-                        if valid and part then
-                            CreateESP(part, entity.Name)
-                        end
-                    end
-                end
-            end
-        end
-        task.wait(1)
-    end
-end
-
-local entityLoop = task.spawn(ScanEntities)
-
-local cleanLoop = game:GetService("RunService").RenderStepped:Connect(function()
-    if espEnabled then
-        for _, v in pairs(ESPFolder:GetChildren()) do
-            if v:IsA("BillboardGui") and (not v.Adornee or not v.Adornee:IsDescendantOf(workspace)) then
-                v:Destroy()
-            end
-        end
-    end
+task.spawn(function()
+	while true do
+		if espEnabled then
+			local folder = workspace:FindFirstChild("SpawnedEnitites")
+			if folder then
+				for _, entity in pairs(folder:GetChildren()) do
+					if not ESPFolder:FindFirstChild("ESP_" .. entity.Name) then
+						local part = entity.PrimaryPart or entity:FindFirstChildWhichIsA("BasePart")
+						if part then
+							CreateESP(part, entity.Name)
+						end
+					end
+				end
+			end
+		end
+		task.wait(1)
+	end
 end)
 
-toggle.MouseButton1Click:Connect(function()
-    espEnabled = not espEnabled
-    toggle.Text = espEnabled and "ESP: ON" or "ESP: OFF"
-    for _, v in pairs(ESPFolder:GetChildren()) do
-        if v:IsA("BillboardGui") then
-            v.Enabled = espEnabled
-        end
-    end
+espButton.MouseButton1Click:Connect(function()
+	espEnabled = not espEnabled
+	espButton.Text = espEnabled and "ESP: ON" or "ESP: OFF"
 end)
 
-close.MouseButton1Click:Connect(function()
-    running = false
-    ESPFolder:Destroy()
-    gui:Destroy()
-    cleanLoop:Disconnect()
-    task.cancel(entityLoop)
+
+local autoDoors = false
+
+task.spawn(function()
+	while true do
+		if autoDoors then
+			for _, section in pairs({"CurrentRoomsA", "CurrentRoomsB", "CurrentRoomsG"}) do
+				local folder = workspace:FindFirstChild(section)
+				if folder then
+					for _, room in pairs(folder:GetChildren()) do
+						for _, obj in pairs(room:GetDescendants()) do
+							if obj:IsA("ProximityPrompt") and obj.ActionText == "Open" and obj.MaxActivationDistance >= 0 then
+								fireproximityprompt(obj)
+								task.wait(0.01)
+							end
+						end
+					end
+				end
+			end
+		end
+		task.wait(0.1)
+	end
 end)
 
-minimize.MouseButton1Click:Connect(function()
-    frame.Visible = false
-    miniButton.Visible = true
+autoDoorsButton.MouseButton1Click:Connect(function()
+	autoDoors = not autoDoors
+	autoDoorsButton.Text = autoDoors and "Auto Doors: ON" or "Auto Doors: OFF"
+end)
+
+
+takeBandageButton.MouseButton1Click:Connect(function()
+	local hrp = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+	if not hrp then return end
+	local originalPos = hrp.CFrame
+	for _, room in pairs(workspace.CurrentRoomsA:GetChildren()) do
+		local item = room:FindFirstChild("BANDAGE")
+		if item and item:FindFirstChild("Bandage") then
+			hrp.CFrame = item.Bandage.CFrame + Vector3.new(0, 3, 0)
+			fireproximityprompt(item.Bandage:FindFirstChildOfClass("ProximityPrompt"))
+			task.wait(0.1)
+		end
+	end
+	hrp.CFrame = originalPos
+end)
+
+
+takeMedicineButton.MouseButton1Click:Connect(function()
+	local hrp = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+	if not hrp then return end
+	local originalPos = hrp.CFrame
+	for _, room in pairs(workspace.CurrentRoomsA:GetChildren()) do
+		local item = room:FindFirstChild("Medicine")
+		if item then
+			hrp.CFrame = item.CFrame + Vector3.new(0, 3, 0)
+			fireproximityprompt(item:FindFirstChildOfClass("ProximityPrompt"))
+			task.wait(0.1)
+		end
+	end
+	hrp.CFrame = originalPos
+end)
+
+
+local viewing = false
+local viewConnection
+local currentTarget = nil
+
+viewEntitiesButton.MouseButton1Click:Connect(function()
+	viewing = not viewing
+	viewEntitiesButton.Text = viewing and "View Entities: ON" or "View Entities: OFF"
+
+	if viewing then
+		viewConnection = game:GetService("RunService").RenderStepped:Connect(function()
+			local folder = workspace:FindFirstChild("SpawnedEnitites")
+			if folder then
+				local closestEntity, dist = nil, math.huge
+				for _, entity in pairs(folder:GetChildren()) do
+					local part = entity.PrimaryPart or entity:FindFirstChildWhichIsA("BasePart")
+					if part then
+						local d = (player.Character.HumanoidRootPart.Position - part.Position).Magnitude
+						if d < dist then
+							closestEntity = part
+							dist = d
+						end
+					end
+				end
+				if closestEntity and closestEntity ~= currentTarget then
+					currentTarget = closestEntity
+					camera.CameraSubject = currentTarget
+				end
+			end
+		end)
+	else
+		if viewConnection then
+			viewConnection:Disconnect()
+			viewConnection = nil
+		end
+		currentTarget = nil
+		local humanoid = player.Character and player.Character:FindFirstChildWhichIsA("Humanoid")
+		if humanoid then
+			camera.CameraSubject = humanoid
+		end
+	end
+end)
+
+
+closeButton.MouseButton1Click:Connect(function()
+	gui:Destroy()
+	ESPFolder:Destroy()
+end)
+
+minimizeButton.MouseButton1Click:Connect(function()
+	frame.Visible = false
+	miniButton.Visible = true
 end)
 
 miniButton.MouseButton1Click:Connect(function()
-    frame.Visible = true
-    miniButton.Visible = false
-end)
-
-takeBandage.MouseButton1Click:Connect(function()
-    local hrp = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
-    if not hrp then return end
-
-    local originalPos = hrp.CFrame
-
-    local bandage = nil
-    for _, room in pairs(game:GetService("Workspace").CurrentRoomsA:GetChildren()) do
-        if room:FindFirstChild("BANDAGE") and room.BANDAGE:FindFirstChild("Bandage") then
-            bandage = room.BANDAGE.Bandage
-            break
-        end
-    end
-
-    if bandage then
-        hrp.CFrame = bandage.CFrame + Vector3.new(0, 3, 0)
-        task.wait(3)
-        hrp.CFrame = originalPos
-    end
-end)
-
-takeMedicine.MouseButton1Click:Connect(function()
-    local hrp = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
-    if not hrp then return end
-
-    local originalPos = hrp.CFrame
-
-    local medicine = game:GetService("Workspace").CurrentRoomsA:FindFirstChild("1") and game:GetService("Workspace").CurrentRoomsA:FindFirstChild("1"):FindFirstChild("Medicine")
-
-    if medicine then
-        hrp.CFrame = medicine.CFrame + Vector3.new(0, 3, 0)
-        task.wait(3)
-        hrp.CFrame = originalPos
-    end
+	frame.Visible = true
+	miniButton.Visible = false
 end)
