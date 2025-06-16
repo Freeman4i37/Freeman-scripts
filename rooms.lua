@@ -107,7 +107,7 @@ local function CreateESP(part, name)
 
 	local connection
 	connection = game:GetService("RunService").RenderStepped:Connect(function()
-		if Billboard and Billboard.Adornee ad espEnabled then
+		if Billboard and Billboard.Adornee and espEnabled then
 			local distance = (player.Character.HumanoidRootPart.Position - Billboard.Adornee.Position).Magnitude
 			Label.Text = name .. " | " .. math.floor(distance) .. "m"
 			Billboard.Enabled = true
