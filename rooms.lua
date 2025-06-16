@@ -123,7 +123,7 @@ end
 task.spawn(function()
 	while true do
 		if espEnabled then
-			local folder = workspace:FindFirstChild("SpawnedEnitites")
+			local folder = workspace:FindFirstChild("SpawnedEntities")
 			if folder then
 				for _, entity in pairs(folder:GetChildren()) do
 					if not ESPFolder:FindFirstChild("ESP_" .. entity.Name) then
@@ -216,7 +216,7 @@ viewEntitiesButton.MouseButton1Click:Connect(function()
 
 	if viewing then
 		viewConnection = game:GetService("RunService").RenderStepped:Connect(function()
-			local folder = workspace:FindFirstChild("SpawnedEnitites")
+			local folder = workspace:FindFirstChild("SpawnedEntities")
 			if folder then
 				local closestEntity, dist = nil, math.huge
 				for _, entity in pairs(folder:GetChildren()) do
