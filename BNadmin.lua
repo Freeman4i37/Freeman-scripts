@@ -240,7 +240,7 @@ end
 local curVer = isAprilFools() and Format("%d.%d.%d", math.random(1, 99), math.random(0, 99), math.random(0, 99)) or NAjson.ver
 
 --[[ Brand ]]--
-local mainName = 'Bandu Admin'
+local mainName = 'Bandu’s Admin'
 local testingName = 'NA Testing'
 local adminName = 'NA'
 
@@ -763,14 +763,6 @@ local playerButtons={}
 CoreGui=COREGUI;
 _G.NAadminsLol={
 	693662558; -- Bandu
-	530829101; --Viper
-	817571515; --Aimlock
-	1844177730; --glexinator
-	2624269701; --Akim
-	2502806181; --null
-	1594235217; --Purple
-	1620986547; --pc alt
-	2019160453; --grim
 }
 
 if UserInputService.TouchEnabled then
