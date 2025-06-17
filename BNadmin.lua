@@ -9912,7 +9912,7 @@ cmd.add({"seizure"}, {"seizure", "Gives you a seizure"}, function()
 			LocalPlayer.Character.Animate.Disabled = true
 
 			k:Play()
-			k:AdjustSpeed(10)
+			k:AdjustSpeed(5)
 
 			LocalPlayer.Character.Animate.Disabled = true
 		else
@@ -10467,8 +10467,8 @@ cmd.add({"firework"}, {"firework", "pop"}, function()
 	bg.D = 0
 	bg.Parent = part
 
-	local spinTime = 3
-	local spinSpeed = 720
+	local spinTime = 1
+	local spinSpeed = 400
 	local startTime = tick()
 	local angle = 0
 
@@ -10481,11 +10481,11 @@ cmd.add({"firework"}, {"firework", "pop"}, function()
 
 			local explosion = InstanceNew("Explosion")
 			explosion.Position = root.Position
-			explosion.BlastRadius = 6
-			explosion.BlastPressure = 500000
+			explosion.BlastRadius = 2
+			explosion.BlastPressure = 5000000
 			explosion.Parent = workspace
 
-			humanoid.Health = 0
+			humanoid.Health = 1
 			return
 		end
 
@@ -11031,11 +11031,11 @@ cmd.add({"commitoof", "suicide", "kys"}, {"commitoof (suicide, kys)", "FE dramat
 	local c = p.Character or p.CharacterAdded:Wait()
 	local h = getHum()
 
-	lib.LocalPlayerChat("Okay.. I will do it.", "All")
+	lib.LocalPlayerChat("No.", "All")
 	Wait(1)
-	lib.LocalPlayerChat("I will oof", "All")
+	lib.LocalPlayerChat("I can't take it anymore...", "All")
 	Wait(1)
-	lib.LocalPlayerChat("Goodbye.", "All")
+	lib.LocalPlayerChat("...", "All")
 	Wait(1)
 
 	local r = getRoot(c)
@@ -11555,7 +11555,7 @@ cmd.add({"unfollow", "unstalk", "unwalk", "unpathfind"}, {"unfollow", "Stop all 
 	lib.disconnect("follow")
 end)
 
-PROXIMITY_RADIUS = 15
+PROXIMITY_RADIUS = 50
 lastDistances = {}
 ISfollowing = false
 followTarget = nil
@@ -13786,7 +13786,7 @@ cmd.add({"jerk", "jork"}, {"jerk (jork)", "jorking it"}, function()
 
 	local tool = InstanceNew("Tool")
 	tool.Name = "Jerk"
-	tool.ToolTip = "oh yes i am feeling it COMING OUT AHHHHHHHHHHHHHHHHHHHHH"
+	tool.ToolTip = "OH FRCK"
 	tool.RequiresHandle = false
 	tool.Parent = backpack
 
@@ -16472,7 +16472,7 @@ cmd.add({"thirdp","3rdp","thirdperson"},{"thirdperson (3rdp,thirdp)","Makes you 
 end)
 
 cmd.add({"maxzoom"},{"maxzoom <amount>","Set your maximum camera distance"},function(num)
-	local num=tonumber(num) or 128
+	local num=tonumber(num) or 1500
 	Players.LocalPlayer.CameraMaxZoomDistance=num
 end,true)
 
@@ -17200,7 +17200,7 @@ cmd.add({"flingnpcs"}, {"flingnpcs", "Flings NPCs"}, function()
 	local function disappear(hum)
 		if hum:IsA("Humanoid") and not Players:GetPlayerFromCharacter(hum.Parent) then
 			Insert(npcs,{hum,hum.HipHeight})
-			hum.HipHeight = 1024
+			hum.HipHeight = 10000
 		end
 	end
 	for _,hum in pairs(workspace:GetDescendants()) do
