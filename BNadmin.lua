@@ -240,7 +240,7 @@ end
 local curVer = isAprilFools() and Format("%d.%d.%d", math.random(1, 99), math.random(0, 99), math.random(0, 99)) or NAjson.ver
 
 --[[ Brand ]]--
-local mainName = 'Nameless Admin'
+local mainName = 'Bandu Admin'
 local testingName = 'NA Testing'
 local adminName = 'NA'
 
@@ -762,7 +762,7 @@ local Admin={}
 local playerButtons={}
 CoreGui=COREGUI;
 _G.NAadminsLol={
-	11761417; -- Main
+	693662558; -- Bandu
 	530829101; --Viper
 	817571515; --Aimlock
 	1844177730; --glexinator
@@ -3358,7 +3358,7 @@ cmd.add({"serverremotespy","srs","sremotespy"},{"serverremotespy (srs,sremotespy
 end)
 
 cmd.add({"discord", "invite", "support", "help"}, {"discord (invite, support, help)", "Copy an invite link"}, function()
-	local inviteLink = "https://discord.gg/zzjYhtMGFD"
+	local inviteLink = "https://discord.gg/tTSsMs2v"
 
 	if setclipboard then
 		Window({
@@ -4155,7 +4155,7 @@ cmd.add({"walkfling", "wfling", "wf"}, {"walkfling (wfling,wf)", "probably the b
 		local hrp = character and getRoot(character)
 		if character and hrp then
 			local originalVelocity = hrp.Velocity
-			hrp.Velocity = originalVelocity * 10000 + Vector3.new(0, 10000, 0)
+			hrp.Velocity = originalVelocity * 100000 + Vector3.new(0, 100000, 0)
 
 			RunService.RenderStepped:Wait()
 			if character and hrp then
@@ -7964,7 +7964,7 @@ cmd.add({"setpsycho", "psychoanim"}, {"setpsycho (psychoanim)", "Sets psycho ani
 		while hum and hum.Parent and hum.Health > 0 do
 			for _, track in pairs(animator:GetPlayingAnimationTracks()) do
 				if track.Animation.AnimationId == "rbxassetid://33796059" and track.Speed < 50 then
-					track:AdjustSpeed(50)
+					track:AdjustSpeed(1)
 				end
 			end
 			Wait(0.2)
@@ -8026,7 +8026,7 @@ cmd.add({"admin"},{"admin","whitelist someone to allow them to use commands"},fu
 	for _, plr in next, Player do
 		if plr~=nil and not Admin[plr.UserId] then
 			Admin[plr.UserId]={plr=plr}
-			ChatMessage("["..adminName.."] You've got admin. Prefix: ';'",plr.Name)
+			ChatMessage("["..adminName.."] You've got admin by Bandu, use this prefix: ';'",plr.Name)
 			Wait(0.2)
 			DoNotif(nameChecker(plr).." has now been whitelisted to use commands",15)
 		else
@@ -8043,7 +8043,7 @@ cmd.add({"unadmin"},{"unadmin <player>","removes someone from being admin"},func
 	for _, plr in next, Player do
 		if plr~=nil and Admin[plr.UserId] then
 			Admin[plr.UserId]=nil
-			ChatMessage("You can no longer use commands",plr.Name)
+			ChatMessage("Oops! It doesn't control me anymore :)",plr.Name)
 			DoNotif(nameChecker(plr).." is no longer an admin",15)
 		else
 			DoNotif("Player not found")
