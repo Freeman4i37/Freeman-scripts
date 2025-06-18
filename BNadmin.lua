@@ -1,6 +1,6 @@
 if getgenv().RealNamelessLoaded then return end
 
-local function NACaller(pp)--helps me log better
+local function NACaller(pp)--help me log better
 	local NAsss,NAerr=pcall(pp)
 	if not NAsss then warn("NA script error: "..NAerr) end
 end
