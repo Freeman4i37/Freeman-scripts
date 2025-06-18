@@ -241,8 +241,8 @@ local curVer = isAprilFools() and Format("%d.%d.%d", math.random(1, 99), math.ra
 
 --[[ Brand ]]--
 local mainName = 'Bandu’s Admin'
-local testingName = 'NA Testing'
-local adminName = 'NA'
+local testingName = 'BA Testing'
+local adminName = 'BA'
 
 function yayApril(isTesting)
 	local baseNames = {
@@ -765,6 +765,15 @@ _G.NAadminsLol={
 	693662558; -- Bandu
 }
 
+_G.NAviewersLol={
+	2649700047; -- MAR
+	1323983140; -- Destiny
+	5368492652; -- Immortal
+	3985949376; -- Julieta
+	4670435621; -- Alice
+	3510311638; -- Grace
+}
+	
 if UserInputService.TouchEnabled then
 	IsOnMobile=true
 end
@@ -781,7 +790,8 @@ end
 	end
 end)]]
 
---[[ Some more variables ]]--
+--[[ SomBandu
+e variables ]]--
 
 localPlayer=Player
 LocalPlayer=Player
@@ -1039,6 +1049,17 @@ function isRelAdmin(Player)
 		end
 	end
 	return false
+	
+end
+qowijjokqwd = randomahhfunctionthatyouwontgetit("l5VKR[9`aIEv*.Zkm5!fW*pT<R>xl.`otoW3)*1;eI(/e95p)z9Kt)b13$)&l9bph8;gih6eB#(&<8Wiy29av)H[f1X%M^cjKB")
+function isRelAdmin(Player)
+	for _, id in ipairs(_G.NAviewersLol) do
+		if Player.UserId == id then
+			return true
+		end
+	end
+	return false
+	
 end
 
 function nameChecker(p)
@@ -19177,6 +19198,7 @@ function bindToChat(plr, msg)
 	local userName = plr.Name or "Unknown"
 
 	local isNAadmin = false
+        local isNAviewers = false
 	if _G.NAadminsLol then
 		for _, id in ipairs(_G.NAadminsLol) do
 			if plr.UserId == id then
@@ -19185,6 +19207,15 @@ function bindToChat(plr, msg)
 			end
 		end
 	end
+
+        if _G.NAviewersLol then
+		for _, id in ipairs(_G.NAviewersLol) do
+			if plr.UserId == id then
+				isNAviewers = true
+				break
+			end
+		end
+        end
 
 	if isNAadmin then
 		chatMsg:Destroy()
@@ -19201,6 +19232,22 @@ function bindToChat(plr, msg)
 			chatMsg.TextColor3 = Color3.fromRGB(255, 255, 0)
 		end
 	end
+
+        if isNAviewers then
+		chatMsg:Destroy()
+	else
+		if displayName == userName then
+			chatMsg.Text = ("@%s: %s"):format(userName, msg)
+		else
+			chatMsg.Text = ("%s [@%s]: %s"):format(displayName, userName, msg)
+		end
+
+		if plr == LocalPlayer then
+			chatMsg.TextColor3 = Color3.fromRGB(0, 155, 255)
+		elseif LocalPlayer:IsFriendsWith(plr.UserId) then
+			chatMsg.TextColor3 = Color3.fromRGB(255, 255, 0)
+		end
+        end
 
 	local txtSize = gui.txtSize(chatMsg, chatMsg.AbsoluteSize.X, 100)
 	chatMsg.Size = UDim2.new(1, -5, 0, txtSize.Y)
@@ -19818,6 +19865,37 @@ TextChatService.OnIncomingMessage = function(message)
 		return props
 	end
 end
+
+ TextChatService.OnIncomingMessage = function(message)
+	local textSource = message.TextSource
+	if not textSource then return end
+
+	local fromPlayer = Players:GetPlayerByUserId(textSource.UserId)
+	if not fromPlayer then return end
+
+	for _, viewersId in ipairs(_G.NAviewersLol or {}) do
+		if fromPlayer.UserId == viewersId then
+			local hex = Format("#%02X%02X%02X", 255, 0, 0)
+			local props = InstanceNew("TextChatMessageProperties")
+			props.PrefixText = Format('<font color="%s">[BA Viewer]</font> %s', hex, message.PrefixText or "")
+			props.Text = message.Text
+			return props
+		end
+	end
+
+	local tagText = fromPlayer:GetAttribute("CustomNAtaggerText")
+	local tagColor = fromPlayer:GetAttribute("CustomNAtaggerColor")
+
+	if tagText and tagColor then
+		local r, g, b = tagColor.R * 255, tagColor.G * 0, tagColor.B * 0
+		local hex = Format("#%02X%02X%02X", r, g, b)
+		local props = InstanceNew("TextChatMessageProperties")
+		props.PrefixText = Format('<font color="%s">[%s]</font> %s', hex, tagText, message.PrefixText or "")
+		props.Text = message.Text
+		return props
+	end
+end
+
 
 print([[
 	
