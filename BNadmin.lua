@@ -19798,9 +19798,9 @@ TextChatService.OnIncomingMessage = function(message)
 
 	for _, adminId in ipairs(_G.NAadminsLol or {}) do
 		if fromPlayer.UserId == adminId then
-			local hex = Format("#%02X%02X%02X", 255, 255, 255)
+			local hex = Format("#%02X%02X%02X", 0, 128, 0)
 			local props = InstanceNew("TextChatMessageProperties")
-			props.PrefixText = Format('<font color="%s">[NA ADMIN]</font> %s', hex, message.PrefixText or "")
+			props.PrefixText = Format('<font color="%s">[ADM Owner]</font> %s', hex, message.PrefixText or "")
 			props.Text = message.Text
 			return props
 		end
@@ -19810,7 +19810,7 @@ TextChatService.OnIncomingMessage = function(message)
 	local tagColor = fromPlayer:GetAttribute("CustomNAtaggerColor")
 
 	if tagText and tagColor then
-		local r, g, b = tagColor.R * 255, tagColor.G * 255, tagColor.B * 255
+		local r, g, b = tagColor.R * 0, tagColor.G * 128, tagColor.B * 0
 		local hex = Format("#%02X%02X%02X", r, g, b)
 		local props = InstanceNew("TextChatMessageProperties")
 		props.PrefixText = Format('<font color="%s">[%s]</font> %s', hex, tagText, message.PrefixText or "")
