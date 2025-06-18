@@ -4202,6 +4202,61 @@ cmd.add({"unwalkfling", "unwfling", "unwf"}, {"unwalkfling (unwfling,unwf)", "st
 	lib.disconnect("walkfling_charfix")
 end)
 
+cmd.add({"tinyfling", "tfling", "tf"}, {"tinyfling (tfling,tf)", "probably the best fling lol, but tiny"}, function()
+	if hiddenfling then return end
+
+	DoNotif("tinyfling enabled", 2)
+	hiddenfling = true
+
+	if not opt.NA_storage:FindFirstChild("juisdfj0i32i0eidsuf0iok") then
+		local detection = InstanceNew("Decal")
+		detection.Name = "juisdfj0i32i0eidsuf0iok"
+		detection.Parent = opt.NA_storage
+	end
+
+	lib.disconnect("tinyflinger")
+	lib.connect("tinyflinger", RunService.Heartbeat:Connect(function()
+		if not hiddenfling then return end
+
+		local lp = Players.LocalPlayer
+		local character = lp and lp.Character
+		local hrp = character and getRoot(character)
+		if character and hrp then
+			local originalVelocity = hrp.Velocity
+			hrp.Velocity = originalVelocity * 100 + Vector3.new(0, 50, 0)
+
+			RunService.RenderStepped:Wait()
+			if character and hrp then
+				hrp.Velocity = originalVelocity
+			end
+
+			RunService.Stepped:Wait()
+			if character and hrp then
+				hrp.Velocity = originalVelocity + Vector3.new(0, 0.1, 0)
+			end
+		end
+	end))
+
+	local lp = Players.LocalPlayer
+	if lp then
+		lib.disconnect("tinyfling_charfix")
+		lib.connect("tinyfling_charfix", lp.CharacterAdded:Connect(function()
+			if hiddenfling then
+				DoNotif("Re-enabling tinyfling")
+			end
+		end))
+	end
+end)
+cmd.add({"untinyfling", "untfling", "untf"}, {"untinyfling (untfling,untf)", "stop the tinyfling command"}, function()
+	if not hiddenfling then return end
+
+	DoNotif("tinyfling disabled", 2)
+	hiddenfling = false
+
+	lib.disconnect("tinyflinger")
+	lib.disconnect("tinyfling_charfix")
+end)
+
 cmd.add({"rjre", "rejoinrefresh"}, {"rjre (rejoinrefresh)", "Rejoins and teleports you to your previous position"}, function()
 	if not DONE then
 		DONE = true
