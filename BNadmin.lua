@@ -4223,7 +4223,7 @@ cmd.add({"tinyfling", "tfling", "tf"}, {"tinyfling (tfling,tf)", "probably the b
 		local hrp = character and getRoot(character)
 		if character and hrp then
 			local originalVelocity = hrp.Velocity
-			hrp.Velocity = originalVelocity * 100 + Vector3.new(0, 50, 0)
+			hrp.Velocity = originalVelocity * 3 + Vector3.new(0, 5, 0)
 
 			RunService.RenderStepped:Wait()
 			if character and hrp then
@@ -4255,6 +4255,61 @@ cmd.add({"untinyfling", "untfling", "untf"}, {"untinyfling (untfling,untf)", "st
 
 	lib.disconnect("tinyflinger")
 	lib.disconnect("tinyfling_charfix")
+end)
+
+cmd.add({"megafling", "mfling", "mf"}, {"megafling (mfling,mf)", "probably the best fling lol, but mega"}, function()
+	if hiddenfling then return end
+
+	DoNotif("megafling enabled", 2)
+	hiddenfling = true
+
+	if not opt.NA_storage:FindFirstChild("juisdfj0i32i0eidsuf0iok") then
+		local detection = InstanceNew("Decal")
+		detection.Name = "juisdfj0i32i0eidsuf0iok"
+		detection.Parent = opt.NA_storage
+	end
+
+	lib.disconnect("megaflinger")
+	lib.connect("megaflinger", RunService.Heartbeat:Connect(function()
+		if not hiddenfling then return end
+
+		local lp = Players.LocalPlayer
+		local character = lp and lp.Character
+		local hrp = character and getRoot(character)
+		if character and hrp then
+			local originalVelocity = hrp.Velocity
+			hrp.Velocity = originalVelocity * 999999 + Vector3.new(999999, 999999, 999999)
+
+			RunService.RenderStepped:Wait()
+			if character and hrp then
+				hrp.Velocity = originalVelocity
+			end
+
+			RunService.Stepped:Wait()
+			if character and hrp then
+				hrp.Velocity = originalVelocity + Vector3.new(0, 0.1, 0)
+			end
+		end
+	end))
+
+	local lp = Players.LocalPlayer
+	if lp then
+		lib.disconnect("megafling_charfix")
+		lib.connect("megafling_charfix", lp.CharacterAdded:Connect(function()
+			if hiddenfling then
+				DoNotif("Re-enabling megafling")
+			end
+		end))
+	end
+end)
+cmd.add({"unmegafling", "unmfling", "unmf"}, {"unmegafling (unmfling,unmf)", "stop the megafling command"}, function()
+	if not hiddenfling then return end
+
+	DoNotif("megafling disabled", 2)
+	hiddenfling = false
+
+	lib.disconnect("megaflinger")
+	lib.disconnect("megafling_charfix")
 end)
 
 cmd.add({"rjre", "rejoinrefresh"}, {"rjre (rejoinrefresh)", "Rejoins and teleports you to your previous position"}, function()
