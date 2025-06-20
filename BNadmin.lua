@@ -764,11 +764,9 @@ CoreGui=COREGUI;
 _G.NAadminsLol={
 	693662558; -- Bandu
 }
-
 _G.NAviewersLol={
 	2649700047; -- MAR
 	1323983140; -- Destiny
-	5368492652; -- Immortal
 	3985949376; -- Julieta
 	4670435621; -- Alice
 	3510311638; -- Grace
@@ -4223,7 +4221,7 @@ cmd.add({"tinyfling", "tfling", "tf"}, {"tinyfling (tfling,tf)", "probably the b
 		local hrp = character and getRoot(character)
 		if character and hrp then
 			local originalVelocity = hrp.Velocity
-			hrp.Velocity = originalVelocity * 3 + Vector3.new(0, 5, 0)
+			hrp.Velocity = originalVelocity * 10 + Vector3.new(0, 15, 0)
 
 			RunService.RenderStepped:Wait()
 			if character and hrp then
@@ -4278,7 +4276,7 @@ cmd.add({"megafling", "mfling", "mf"}, {"megafling (mfling,mf)", "probably the b
 		local hrp = character and getRoot(character)
 		if character and hrp then
 			local originalVelocity = hrp.Velocity
-			hrp.Velocity = originalVelocity * 999999 + Vector3.new(999999, 999999, 999999)
+			hrp.Velocity = originalVelocity * 5555 + Vector3.new(5559, 5555, 5559)
 
 			RunService.RenderStepped:Wait()
 			if character and hrp then
@@ -19862,8 +19860,8 @@ Spawn(function()
 			(identifyexecutor and ("\nExecutor: "..executorName) or "")..
 			"\nUpdated on: "..opt.NAupdDate..
 			"\nTime Taken To Load: "..loadedResults(NAresult)
-
-		DoNotif(notifBody, 6, rngMsg().." "..nameCheck)
+		        "\nLoaded on: Python Code"
+		DoNotif(notifBody, 7, rngMsg().." "..nameCheck)
 
 		if not FileSupport then
 			warn("NAWWW NO FILE SUPPORT???????")
@@ -19893,7 +19891,8 @@ Spawn(function()
 		-- just ignore this section (personal stuff)
 		--[[Window({
 			Title = adminName.." (Archived)",
-			Description = 'This version is no longer maintained.\nCheck the README on GitHub for legacy details.',
+			Description = 'This version is no lonExecutor
+					tained.\nCheck the README on GitHub for legacy details.',
 			Buttons = {
 				{
 					Text = "Copy GitHub Repo",
@@ -19983,7 +19982,7 @@ end
 	local fromPlayer = Players:GetPlayerByUserId(textSource.UserId)
 	if not fromPlayer then return end
 
-	for _, viewersId in ipairs(_G.NAviewersLol or {}) do
+	for _, viewerId in ipairs(_G.NAviewersLol or {}) do
 		if fromPlayer.UserId == viewersId then
 			local hex = Format("#%02X%02X%02X", 255, 0, 0)
 			local props = InstanceNew("TextChatMessageProperties")
