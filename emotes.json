@@ -1,0 +1,38 @@
+[
+    {
+        "_comment": "All animation IDs has been pulled independently by the Bandu Team. If you're gonna use this for your own emotes menu, please credit us. We will be updating this list periodically and automatically."
+    },
+    {
+        "CustomImage": "rbxassetid://0",
+        "Name": "Adidas",
+        "ProductId": 0,
+        "Animations": {
+            "walk": {
+                "WalkAnim": "http://www.roblox.com/asset/?id=18538146480"
+            },
+            "swimidle": {
+                "SwimIdle": "http://www.roblox.com/asset/?id=18537387180"
+            },
+            "idle": {
+                "Animation2": "http://www.roblox.com/asset/?id=18537376492",
+                "Animation1": "http://www.roblox.com/asset/?id=18538150608"
+            },
+            "climb": {
+                "ClimbAnim": "http://www.roblox.com/asset/?id=18538170170"
+            },
+            "jump": {
+                "JumpAnim": "http://www.roblox.com/asset/?id=18538153691"
+            },
+            "fall": {
+                "FallAnim": "http://www.roblox.com/asset/?id=18538164337"
+            },
+            "run": {
+                "RunAnim": "http://www.roblox.com/asset/?id=18538133604"
+            },
+            "swim": {
+                "Swim": "http://www.roblox.com/asset/?id=18538158932"
+            }
+        },
+        "BundleId": 0
+    }
+]
