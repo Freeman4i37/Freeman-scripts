@@ -430,7 +430,7 @@ local Window = Notification.Window
 
 function DoNotif(text, duration, sender)
 	Notify({
-		Title = sender or adminName or "Nameless",
+		Title = sender or adminName or "Bandu",
 		Description = text or "something",
 		Duration = duration or 5
 	})
@@ -438,7 +438,7 @@ end
 
 function DoWindow(text, duration, sender)
 	Window({
-		Title = sender or adminName or "Nameless",
+		Title = sender or adminName or "Bandu",
 		Description = text or "something",
 		Duration = duration or 5
 	})
@@ -770,6 +770,7 @@ _G.NAviewersLol={
 	3985949376; -- Julieta
 	4670435621; -- Alice
 	3510311638; -- Grace
+	8460472363; -- DNA
 }
 	
 if UserInputService.TouchEnabled then
@@ -4166,7 +4167,7 @@ cmd.add({"walkfling", "wfling", "wf"}, {"walkfling (wfling,wf)", "probably the b
 		local hrp = character and getRoot(character)
 		if character and hrp then
 			local originalVelocity = hrp.Velocity
-			hrp.Velocity = originalVelocity * 100000 + Vector3.new(0, 100000, 0)
+			hrp.Velocity = originalVelocity * 1000 + Vector3.new(1000, 1000, 1000)
 
 			RunService.RenderStepped:Wait()
 			if character and hrp then
@@ -4896,7 +4897,7 @@ cmd.add({"reach", "swordreach"}, {"reach [number] (swordreach)", "Extends sword 
                 sb.Name = "FunTIMES"
                 sb.LineThickness = 0.01
                 sb.Color3 = Color3.fromRGB(255, 0, 0)
-                sb.Transparency = 0.7
+                sb.Transparency = 0.2
                 sb.Parent = toolPart
 
                 toolPart.Massless = true
@@ -4950,7 +4951,7 @@ cmd.add({"boxreach"}, {"boxreach [number]", "Creates a box-shaped hitbox around 
                 sb.Name = "FunTIMES"
                 sb.LineThickness = 0.01
                 sb.Color3 = Color3.fromRGB(0, 0, 255)
-                sb.Transparency = 0.7
+                sb.Transparency = 0.2
                 sb.Parent = toolPart
 
                 toolPart.Massless = true
@@ -4998,8 +4999,8 @@ cmd.add({"aura"},{"aura [distance]","Continuously damages nearby players with eq
     auraViz=InstanceNew("Part")
     auraViz.Shape=Enum.PartType.Ball
     auraViz.Size=Vector3.new(dist*2,dist*2,dist*2)
-    auraViz.Transparency=0.8
-    auraViz.Color=Color3.fromRGB(255,0,0)
+    auraViz.Transparency=0.3
+    auraViz.Color=Color3.fromRGB(0,255,0)
     auraViz.Material=Enum.Material.Neon
     auraViz.Anchored=true
     auraViz.CanCollide=false
@@ -5045,7 +5046,7 @@ cmd.add({"antivoid"},{"antivoid","Prevents you from falling into the void by lau
 	lib.connect("antivoid", RunService.Stepped:Connect(function()
 		local character = getChar()
 		local root = character and getRoot(character)
-		if root and root.Position.Y <= OrgDestroyHeight + 25 then
+		if root and root.Position.Y <= OrgDestroyHeight + 90 then
 			root.Velocity = Vector3.new(root.Velocity.X, root.Velocity.Y + 250, root.Velocity.Z)
 		end
 	end))
